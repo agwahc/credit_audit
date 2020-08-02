@@ -1,0 +1,7 @@
+{'date/time': '28/07/2020 20:54', 'amount': 5000, 'beneficiary': 'Azotani', 'purpose': 'Lens'}
+{'date/time': '28/07/2020 20:59', 'amount': 10000, 'beneficiary': 'Daddy', 'purpose': 'Food'}
+{'date/time': '01/08/2020 23:00', 'amount': 4000, 'sender': ' ', 'purpose': 'Welfare', 'beneficiary': 'Mum'}
+{'date/time': '01/08/2020 23:02', 'amount': 5000, 'sender': ' ', 'purpose': 'Upkeep', 'beneficiary': 'Veena'}
+{'date/time': '01/08/2020 23:03', 'amount': 5000, 'sender': ' ', 'purpose': 'Upkeep', 'beneficiary': 'Davina'}
+{'date/time': '01/08/2020 23:04', 'amount': 7000, 'sender': 'Davina', 'purpose': 'Welfare'}
+{'date/time': '01/08/2020 23:10', 'amount': 200, 'sender': 'Mum', 'purpose': 'Water'}
