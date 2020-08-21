@@ -1,0 +1,6 @@
+{'purpose': 'repairs', 'amount': '6000', 'Type': 'CREDIT', 'method': 'Cash', 'date/time': '20/08/2020 22:14', 'sender': 'a'}
+{'Type': 'CREDIT', 'date/time': '20/08/2020 22:19', 'purpose': 'food', 'method': 'Cash', 'amount': '1000', 'sender': 'b'}
+{'Type': 'CREDIT', 'date/time': '20/08/2020 22:19', 'purpose': 'fuel', 'method': 'Bank', 'amount': '200', 'sender': 'c'}
+{'Type': 'DEBIT', 'sender': 'd', 'method': 'Bank', 'purpose': 'flex', 'date/time': '20/08/2020 22:21', 'amount': '876'}
+{'date/time': '20/08/2020 23:57', 'method': 'Cash', 'purpose': 'Card', 'sender': 'Bobby', 'Type': 'DEBIT', 'amount': '100'}
+{'sender': 'Myself', 'purpose': 'No reason', 'Type': 'DEBIT', 'date/time': '21/08/2020 04:21', 'amount': '60000', 'method': 'Bank'}
