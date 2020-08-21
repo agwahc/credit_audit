@@ -1,4 +1,0 @@
-{'date/time': '28/07/2020 20:54', 'amount': 500, 'beneficiary': 'Bobby', 'purpose': 'Transport'}
-{'date/time': '28/07/2020 20:57', 'amount': 1000, 'beneficiary': 'market', 'purpose': 'meat'}
-{'date/time': '01/08/2020 22:58', 'amount': 7500, 'beneficiary': 'SHARON', 'purpose': 'Upkeep'}
-{'date/time': '01/08/2020 23:00', 'amount': 7500, 'beneficiary': 'Mike', 'purpose': 'Shoes'}

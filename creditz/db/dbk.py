@@ -1,89 +1,77 @@
 from datetime import datetime
-from creditz.menu import *
+from creditz.source import *
 import dir
+import ast
+import pandas as pd
 
-access1 = {"date/time": " ", "amount": 0, "sender": " ", "purpose": " "}
-access2 = {"date/time": " ", "amount": 0, "beneficiary": " ", "purpose": " "}
+access1 = {'Type': ' ', 'date/time': " ", 'amount': 0, 'sender': " ", 'purpose': " ", 'method': ' '}
+table = {}
 
 
-def call():  # returns data from db.txt to access
-    o = int(input('Which? Credit OR Debit, 1 OR 2 : '))
-    if o == 1:
-        p = dir.for_credit()
-        data = open(p, 'r')
-        print(data.read())
-        data.close()
-    elif o == 2:
-        p = dir.for_debit()
-        data = open(p, 'r')
-        print(data.read())
-        data.close()
-    else:
-        print('Didn\'t work')
-        select(1)
-    menu()
+def call_part():  # returns data from db.txt
+    o = dir.file('/db.txt')
+    z = open(o, 'r')
+    for i in z:
+        f = ast.literal_eval(i)
+        if f['Type'] == 'CREDIT':
+            table['CREDIT'] = table.get('CREDIT', []) + [f['amount']]
+            table['RECP'] = table.get('RECP', []) + [f['sender']]
+            table['METHOD'] = table.get('METHOD', []) + [f['method']]
+            table['DEBIT'] = table.get('DEBIT', []) + ['-']
+            table['DATE/TIME'] = table.get('DATE/TIME', []) + [f['date/time']]
+        elif f['Type'] == 'DEBIT':
+            table['DEBIT'] = table.get('DEBIT', []) + [f['amount']]
+            table['CREDIT'] = table.get('CREDIT', []) + ['-']
+            table['RECP'] = table.get('RECP', []) + [f['sender']]
+            table['METHOD'] = table.get('METHOD', []) + [f['method']]
+            table['DATE/TIME'] = table.get('DATE/TIME', []) + [f['date/time']]
+    report = pd.DataFrame(table)
+    table.clear()
+    return str(report)
 
 
 def analyze():
-    z = int(input('Show remaining money? Yes = 1 OR No = Any_key : '))
-    if z == 1:
-        import ast
-        p = dir.for_credit()
-        r = dir.for_debit()
-        cal = 0
-        rem = 0
-        for i in open(p, 'r'):  # reading values of amount in credit_db to sum up to cal
-            print(i)
-            y = ast.literal_eval(i)
-            x = y['amount']
+    # z = int(input('Show remaining money? Yes = 1 OR No = Any_key : '))
+    # if z == 1:
+    p = dir.file('/db.txt')
+    z = open(p, 'r')
+    cal = 0
+    rem = 0
+    for i in z:  # reading values of amount in db to sum up to cal
+        y = ast.literal_eval(i)
+        if y['Type'] == 'CREDIT':
+            x = int(y['amount'])
             cal += x
-        print('Your total credit amount : N{}'.format(cal))
-        for b in open(r, 'r'):  # reading values of amount in debit_db to subtract from cal
-            n = ast.literal_eval(b)
-            m = n['amount']
+        elif y['Type'] == 'DEBIT':
+            m = int(y['amount'])
             rem += m
-        print('Your total debit amount : N{}'.format(rem))
-        final = cal - rem
-        if final < 0:
-            final_fix = abs(final)
-            print('Your remaining money amount : N{}, means you have spend N{} over-budget'.format(final,
-                                                                                                  final_fix))  # gets absolute of remaining money
-        else:
-            print('Your remaining money amount : N{}'.format(final))
-        return menu()
+    statement_cre = 'Your total credit amount : N{}'.format(cal)
+    statement_deb = 'Your total debit amount : N{}'.format(rem)
+    final = cal - rem
+    if final < 0:
+        final_fix = abs(final)
+        statement_err = 'Your balance is: N{}, means you have spend N{} over-budget'.format(final,
+                                                                                               final_fix)  # gets absolute of remaining money
+        statement_tol = 0
     else:
-        return menu()
+        statement_err = 0
+        statement_tol = 'Your balance is: N{}'.format(final)
+    x = [statement_cre, statement_deb, statement_tol, statement_err]
+    z.close()
+    return x
 
 
-def store_debit(self, a, b, c):
+def store_credit(self, a, b, c, m, t):
     dt = datetime.now()
     d_t = dt.strftime('%d/%m/%Y %H:%M')
-    access2["date/time"] = d_t
-    access2["amount"] = a
-    access2["beneficiary"] = b
-    access2["purpose"] = c
-    access2str = str(access2)
-    d = open("debit_db.txt", "a")
-    d.write(access2str)
+    access1['date/time'] = d_t
+    access1['amount'] = a
+    access1['sender'] = b
+    access1['purpose'] = c
+    access1['method'] = m
+    access1['Type'] = t
+    access1str = str(access1)
+    d = open("db.txt", "a")
+    d.write(access1str)
     d.write('\n')
     d.close()
-    menu()
-
-
-def store_credit(self, a, b, c):
-    dt = datetime.now()
-    d_t = dt.strftime('%d/%m/%Y %H:%M')
-    access1["date/time"] = d_t
-    access1["amount"] = a
-    access1["sender"] = b
-    access1["purpose"] = c
-    access2str = str(access1)
-    d = open("credit_db.txt", "a")
-    d.write(access2str)
-    d.write('\n')
-    d.close()
-    menu()
-
-
-def menu():
-    select(self=1)
